@@ -20,12 +20,22 @@ include("back.php");
     <h1>Prueba bootstrap</h1>
     <div>
         <form method="post" class="form">
-                DNI: <input type="text" id="dni" class="">  
-                Nombre: <input type="text" id="nombre">
-                Apellido: <input type="text" id="apellido">
-                Fecha de nacimiento: <input type="date" id="fecha">
+                DNI: <input type="text" name="dni" class="">  
+                Nombre: <input type="text" name="nombre">
+                Apellido: <input type="text" name="apellido">
+                Fecha de nacimiento: <input type="date" name="fecha">
                 <button type="submit" id="enviar" class="btn btn-primary">Añadir</button>
         </form>
     </div>    
 </body>
 </html>
+
+<?php
+
+
+$persona1 = new Usuarios(12534, 3535, 4535, 2445);
+$persona1->registrar();
+
+
+
+?>
