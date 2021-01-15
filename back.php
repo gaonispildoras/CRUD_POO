@@ -3,26 +3,34 @@
 class Usuarios{
 
     //Atributos
-    public $dni="";
-    public $nombre="";
-    public $apellido="";
-    public $fecha="";
-    
+    public $conexion="";
+
 
     //Métodos
 
-    function __construct($dni, $nombre, $apellido, $fecha){
-        $this->dni=$dni;
-        $this->nombre=$nombre;
-        $this->apellido=$apellido;
-        $this->fecha=$fecha;  
-                  
+    function __construct(){
+        $host="localhost";
+        $db="crud";
+        $user="root";
+        $pass="";
+        
+        $conexion=mysqli_connect($host,$user,$pass,$db);
+       if($conexion==true){
+           echo "hecho";
+       } 
+       else {
+            echo "no hecho";
+       }
+       
+       $this->conexion=$conexion;                  
     }
+ 
 
-    function registrar(){
+    function registrar($dni, $nombre, $apellido, $fecha){
        if($this->vacio()==true){
-           $sql="INSERT INTO usuarios (dni, nombre, apellido, fecha_nacimiento) VALUES ('$this->dni', '$this->nombre', '$this->apellido', '$this->fecha')";
-           $registro=mysqli_query($this->conexion(), $sql);
+           $sql="INSERT INTO usuarios (dni, nombre, apellido, fecha_nacimiento) VALUES ('$dni', '$nombre', '$apellido', '$fecha')";
+           echo "<h1>$sql</h1>";
+           $registro=mysqli_query($this->conexion, $sql);
            
                 if($registro){
                     echo "WE DID IT!!";
@@ -46,22 +54,6 @@ class Usuarios{
 
     }
 
-    function conexion(){
-        $host="localhost";
-        $db="crud";
-        $user="root";
-        $pass="";
-        
-        $conexion=mysqli_connect($host,$user,$pass,$db);
-       if($conexion==true){
-           echo "hecho";
-       } 
-       else {
-            echo "no hecho";
-       }
-       return $conexion;
-       
-    }
 
     function vacio(){
         if ($this->dni="" || $this->nombre="" || $this->apellido="" || $this->fecha=""){
@@ -78,10 +70,4 @@ class Usuarios{
 
 
 }
-
-
-
-
-
-
 ?>
