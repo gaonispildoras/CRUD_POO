@@ -1,6 +1,7 @@
 <?php
 //INCLUDE
 include("back.php");
+$conexion = new Usuarios();
 ?>
 
 
@@ -19,12 +20,12 @@ include("back.php");
 
     <h1>Prueba bootstrap</h1>
     <div>
-        <form method="post" class="form">
+        <form method="post" class="form" action="index.php">
                 DNI: <input type="text" name="dni" class="">  
                 Nombre: <input type="text" name="nombre">
                 Apellido: <input type="text" name="apellido">
                 Fecha de nacimiento: <input type="date" name="fecha">
-                <button type="submit" id="enviar" class="btn btn-primary">Añadir</button>
+                <button type="submit" name="enviar" class="btn btn-primary">Añadir</button>
         </form>
     </div>    
 </body>
@@ -32,9 +33,13 @@ include("back.php");
 
 <?php
 
+if (isset($_POST["enviar"])){
 
-$persona1 = new Usuarios(12534, 3535, 4535, 2445);
-$persona1->registrar();
+    $conexion->registrar($_POST["dni"], $_POST["nombre"], $_POST["apellido"], $_POST["fecha"]);
+}
+else{
+    echo "error";
+}
 
 
 
