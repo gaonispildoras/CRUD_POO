@@ -8,40 +8,18 @@ class Usuarios{
 
     //Métodos
 
-    function __construct(){
+    public function __construct(){
         $host="localhost";
         $db="crud";
         $user="root";
         $pass="";
         
         $conexion=mysqli_connect($host,$user,$pass,$db);
-       if($conexion==true){
-           echo "hecho";
-       } 
-       else {
-            echo "no hecho";
-       }
-       
-       $this->conexion=$conexion;                  
+        $this->conexion=$conexion;                  
     }
  
 
-    function registrar($dni, $nombre, $apellido, $fecha){
-       if($this->vacio()==true){
-           $sql="INSERT INTO usuarios (dni, nombre, apellido, fecha_nacimiento) VALUES ('$dni', '$nombre', '$apellido', '$fecha')";
-           echo "<h1>$sql</h1>";
-           $registro=mysqli_query($this->conexion, $sql);
-           
-                if($registro){
-                    echo "WE DID IT!!";
-                }
-                else{
-                    echo "NOPE";
-                    
-                }
-       }else {
-           echo "Debes rellenar todos los campos";
-       }
+    function registro(){
 
     }
 
@@ -55,17 +33,51 @@ class Usuarios{
     }
 
 
-    function vacio(){
-        if ($this->dni="" || $this->nombre="" || $this->apellido="" || $this->fecha=""){
+    function vacio_login(){
+        if ($usuario=""){
 
-            return $vacio=false;
+            return true;
+            
             
 
         }
         else{
             
-            return $vacio=true;
+            return false;
         }
+    }
+
+    function registro_login($usuario, $contraseña, $contraseña2, $correo, $admin){
+        if($this->vacio_login()==false){
+
+            if($admin=="normal"){
+                if ($contraseña==$contraseña2){
+                    $sql="INSERT INTO usuarios (usuario, contraseña, correo) VALUES ('$usuario', '$contraseña', '$correo')";
+                    mysqli_query($this->conexion, $sql);
+                    echo "Usuario registrado con éxito";
+                }
+                else{
+                    echo "Las contraseñas no coinciden";
+                }
+                
+            }
+            else{
+                if ($contraseña==$contraseña2){
+                    $sql="INSERT INTO admin (usuario, contraseña, correo) VALUES ('$usuario', '$contraseña', '$correo')";
+                    mysqli_query($this->conexion, $sql);
+                    echo "Usuario registrado con éxito";
+                }
+                else{
+                    echo "Las contraseñas no coinciden";
+                }
+
+            }
+
+        }
+        else{
+            echo "debes rellenar todos los campos";
+        }
+
     }
 
 
