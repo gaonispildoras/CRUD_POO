@@ -1,6 +1,6 @@
 <?php
 //INCLUDE
-include("back.php");
+include("login_registro.php");
 ?>
 
 <!DOCTYPE html>
@@ -41,14 +41,14 @@ $(function(){
 
         <form action="" method="post" id="login" class="form">
             <div><span>Usuario: </span><input type="text" name="usuario_l"></div>
-            <div><span>Contraseña: </span> <input type="text" name="contraseña_l"></div>
+            <div><span>Contraseña: </span> <input type="password" name="contraseña_l"></div>
             <button type="submit" class="btn btn-primary" name="enviar_l">Enviar</button>
         </form>
 
         <form action="" method="post" id="registro">
             <div><span>Usuario: </span><input type="text" name="usuario_r"></div>
-            <div><span>Contraseña: </span> <input type="text" name="contraseña_r"></div>
-            <div><span>Confirmar Contraseña: </span> <input type="text" name="contraseña_r2"></div>
+            <div><span>Contraseña: </span> <input type="password" name="contraseña_r"></div>
+            <div><span>Confirmar Contraseña: </span> <input type="password" name="contraseña_r2"></div>
             <div><span>Correo Electrónico: </span><input type="text" name="correo"></div>
             <div><span>Elige el tipo de cuenta: </span><select name="admin[]" id=""><option value="admin" >Admin</option><option value="normal" >Normal</option></select></div>
             <button type="submit" class="btn btn-primary" name="enviar_r">Enviar</button>
@@ -61,14 +61,16 @@ $(function(){
 if(isset($_POST["enviar_r"])){
     $admin=$_POST["admin"];
 
-    $persona = new Usuarios;
+    $persona = new Login_registro;
     $persona->vacio_login();
-    $persona->registro_login("$_POST[usuario_r]", "$_POST[contraseña_r]","$_POST[contraseña_r2]","$_POST[correo]", "$admin[0]");
+    $persona->registrar("$_POST[usuario_r]", "$_POST[contraseña_r]","$_POST[contraseña_r2]","$_POST[correo]", "$admin[0]");
     
 }
 
 elseif(isset($_POST["enviar_l"])){
-
+    $persona = new Login_registro;
+    $persona->vacio_login();
+    $persona->login("$_POST[usuario_l]", "$_POST[contraseña_l]");
 
 }
 
