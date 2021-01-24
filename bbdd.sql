@@ -1,11 +1,19 @@
 CREATE DATABASE crud;
 
 CREATE TABLE crud.usuarios 
-    (dni int PRIMARY KEY NOT NULL,
-    nombre varchar(25) NOT NULL,
-    apellido varchar(25) NOT NULL,
-    fecha_nacimiento date NOT NULL
+    (id_usuario int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    usuario varchar(25) NOT NULL,
+    contraseña varchar(25) NOT NULL,
+    correo VARCHAR(25) NOT NULL
     );
+
+CREATE TABLE crud.admin2 
+    (id_usuario int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    usuario varchar(25) NOT NULL,
+    contraseña varchar(25) NOT NULL,
+    correo VARCHAR(25) NOT NULL
+    );
+
 
 
 
