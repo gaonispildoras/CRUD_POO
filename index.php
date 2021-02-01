@@ -1,7 +1,16 @@
 <?php
+
 //INCLUDE
-include("back.php");
-$conexion = new Usuarios();
+require_once("back.php");
+require_once("login_registro.php");
+
+// MÉTODOS
+$persona1 = new Login_registro;
+$persona2 = new Usuarios;
+$persona2->ver_pdf();
+$persona2->descargar_pdf();
+$persona1->session();
+$persona1->logout();
 ?>
 
 
@@ -14,33 +23,35 @@ $conexion = new Usuarios();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="estilos.css" media="screen" />
     <title>Crud POO</title>
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="tabla col-sm-6 col-md-8 col-lg-8 ">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Edad</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                    </tr>
+                    <?php $persona2->cargar_tabla(); ?>
+                </table>
+            </div>
 
-    <h1>Prueba bootstrap</h1>
-    <div>
-        <form method="post" class="form" action="index.php">
-                DNI: <input type="text" name="dni" class="">  
-                Nombre: <input type="text" name="nombre">
-                Apellido: <input type="text" name="apellido">
-                Fecha de nacimiento: <input type="date" name="fecha">
-                <button type="submit" name="enviar" class="btn btn-primary">Añadir</button>
-        </form>
-    </div>    
+            <div class="vista col-sm-6 col-md-4 col-lg-4 ">
+            <?php $persona2->cargar_ver(); ?>
+            <?php ?>
+                
+            </div>
+        </div>
+    </div>
+    <form action="" method="post">
+        <button class="btn btn-danger" type="submit" name="salir">Exit</button>
+    </form>
 </body>
 </html>
 
-<?php
-
-if (isset($_POST["enviar"])){
-
-    $conexion->registrar($_POST["dni"], $_POST["nombre"], $_POST["apellido"], $_POST["fecha"]);
-}
-else{
-    echo "error";
-}
-
-
-
-?>
