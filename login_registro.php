@@ -1,5 +1,5 @@
 <?php
-include("conexion.php");
+require_once("conexion.php");
 
 class Login_registro extends Conexion{
 
@@ -48,18 +48,21 @@ class Login_registro extends Conexion{
       $resultado = Conexion::__construct()->prepare($sql);
       $resultado->execute(array(":usuario"=>$usuario, ":pass"=>$pass));
 
-      $resultado2 = Conexion::__construct()->prepare($sql);
+      $resultado2 = Conexion::__construct()->prepare($sql2);
       $resultado2->execute(array(":usuario"=>$usuario, ":pass"=>$pass));
 
-      if ($resultado->rowCount()==1){
-         header("Location: index.php");
-      }
-      elseif($resultado2->rowCount()==1){
-         header("Location: index.php");
-      }
-      else{
-         echo "El nombre de usuario o la contraseña no coinciden";
-      }
+         if ($resultado->rowCount()==1){
+            header("Location: index.php");
+            
+         }
+         elseif($resultado2->rowCount()==1){
+            header("Location: index.php");
+            $this->session();
+            $_SESSION["admin"]=true;
+         }
+         else{
+            echo "El nombre de usuario o la contraseña no coinciden";
+         }
 
 
    }
@@ -73,7 +76,24 @@ class Login_registro extends Conexion{
 
          return false;
       }
-   }      
+   } 
+   
+   public function session(){
+         return session_start();
+      
+   }
+
+   public function exit_session(){
+         return session_destroy();
+   }
+
+   public function logout(){
+      if(isset($_POST["salir"])){
+         $this->exit_session();
+         header("Location: login.php");
+     }
+     
+   }
 
 }
 
