@@ -30,10 +30,7 @@ $(function(){
                 $("#login").show();
                 oculto=false;
             }
-
-
         });
-
 });
 </script>
 

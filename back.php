@@ -3,10 +3,7 @@ require_once("conexion.php");
 require_once("librerias/TCPDF/tcpdf.php");
 
 
-
 class Usuarios extends Conexion{
-
-
 
 
     public function __construct(){
@@ -15,17 +12,26 @@ class Usuarios extends Conexion{
  
 
     function eliminar(){
-
+        if(isset($_GET["eliminar"])){
+            if(isset($_SESSION["admin"])){
+                $sql="DELETE FROM info_usuarios WHERE id_info = $_GET[id_info]";
+                $resultado = Conexion::__construct()->prepare($sql);
+                $resultado -> execute();
+                
+            }
+            else{
+                echo "No eres ADMIN, no puedes eliminar ningún usuario";
+            }
+        }
 
     }
 
     function editar(){
 
-
     }
 
     function cargar_tabla(){
-        $sql="SELECT nombre, apellidos, edad, correo, direccion FROM info_usuarios";
+        $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion FROM info_usuarios";
         $resultado = Conexion::__construct()->prepare($sql);
         $resultado->execute();
             while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
@@ -36,21 +42,20 @@ class Usuarios extends Conexion{
                         <td>$array[edad]</td>
                         <td>$array[correo]</td>
                         <td>$array[direccion]</td>
-                        <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]'><p>Ver</p></a><p>Editar</p><p>Eliminar</p></td>
+                        <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]'><button class='btn btn-info'>Ver</button></a>
+                            <button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
+                            <a href='$_SERVER[PHP_SELF]?eliminar=eliminar&id_info=$array[id_info]'><button class='btn btn-danger'>Eliminar</button></a>
+
+                        </td>
                  </tr>       
                 ";
             }
     }
 
     public function coger_datos(){
-        if(isset($_GET["nom"])){
-            $array1[]=$_GET["nom"];
-            $array1[]=$_GET["ape"];
-            
-        }
-
-        return $array1;
-        echo $array1[0];
+        $sql="SELECT nombre, apellidos, edad, correo, direccion FROM info_usuarios";
+        $resultado = Conexion::__construct()->prepare($sql);
+        $resultado->execute();
 
     }
 
@@ -67,8 +72,8 @@ class Usuarios extends Conexion{
                 <h1>Edad: $edad</h1>
                 <h1>Correo Electrónico: $correo</h1>
                 <h1>Dirección: $direccion</h1> 
-                <a href='$_SERVER[PHP_SELF]?ver_pdf=prueba'>Ver en PDF</a>
-                <a href='$_SERVER[PHP_SELF]?desc_pdf=prueba'>Descargar PDF</a>
+                <a href='$_SERVER[PHP_SELF]?ver_pdf=prueba&nombre=$nombre&apellido=$apellido&edad=$edad&correo=$correo&direccion=$direccion'>Ver en PDF</a>
+                <a href='$_SERVER[PHP_SELF]?desc_pdf=prueba&nombre=$nombre&apellido=$apellido&edad=$edad&correo=$correo&direccion=$direccion'>Descargar PDF</a>
             ";
         }
     }
@@ -85,13 +90,13 @@ class Usuarios extends Conexion{
             
             
             // Set some content to print
-            $html = '
-            <h1>Nombre: holaaa $prueba </h1>
-            <h1>Apellidos: </h1>
-            <h1>Edad: </h1>
-            <h1>Correo Electrónico: </h1>
-            <h1>Dirección: </h1> 
-            ';
+            $html = " 
+            <h1>Nombre: $_GET[nombre] </h1>
+            <h1>Apellidos: $_GET[apellido] </h1>
+            <h1>Edad: $_GET[edad] </h1>
+            <h1>Correo Electrónico: $_GET[correo] </h1>
+            <h1>Dirección: $_GET[direccion] </h1> 
+            ";
 
 
             // Print text using writeHTMLCell()
@@ -100,7 +105,7 @@ class Usuarios extends Conexion{
 
             // Close and output PDF document
             // This method has several options, check the source code documentation for more information.
-            $pdf->Output('example_001.pdf', 'I');
+            $pdf->Output("Informacion_$_GET[nombre].pdf", 'I');
 
         }
     }
@@ -114,14 +119,14 @@ class Usuarios extends Conexion{
             // This method has several options, check the source code documentation for more information.
             $pdf->AddPage();
 
-
+            
             // Set some content to print
             $html = <<<EOD
-            <h1>Nombre:   </h1>
-            <h1>Apellidos: </h1>
-            <h1>Edad: </h1>
-            <h1>Correo Electrónico: </h1>
-            <h1>Dirección: </h1> 
+            <h1>Nombre:  $_GET[nombre] </h1>
+            <h1>Apellidos: $_GET[apellido]</h1>
+            <h1>Edad: $_GET[edad]</h1>
+            <h1>Correo Electrónico: $_GET[correo]</h1>
+            <h1>Dirección: $_GET[direccion]</h1> 
             EOD;
 
 
@@ -131,7 +136,7 @@ class Usuarios extends Conexion{
 
             // Close and output PDF document
             // This method has several options, check the source code documentation for more information.
-            $pdf->Output('example_001.pdf', 'I');
+            $pdf->Output("Informacion_$_GET[nombre].pdf", 'D');
 
         }
     }
