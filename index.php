@@ -11,6 +11,8 @@ $persona2->ver_pdf();
 $persona2->descargar_pdf();
 $persona1->session();
 $persona1->logout();
+$persona2->eliminar();
+
 ?>
 
 
@@ -30,7 +32,7 @@ $persona1->logout();
     <div class="container">
         <div class="row">
             <div class="tabla col-sm-6 col-md-8 col-lg-8 ">
-                <table class="table table-hover">
+                <table class="table table-hover table-dark">
                     <tr>
                         <th>Nombre</th>
                         <th>Apellidos</th>
@@ -49,6 +51,24 @@ $persona1->logout();
             </div>
         </div>
     </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php $persona2->editar(); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     <form action="" method="post">
         <button class="btn btn-danger" type="submit" name="salir">Exit</button>
     </form>
