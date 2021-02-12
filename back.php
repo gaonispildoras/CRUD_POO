@@ -33,13 +33,16 @@ class Usuarios extends Conexion{
                 
             }
             else{
+                
+                
                 echo "No eres ADMIN, no puedes editar ningún usuario";
+
             }
         }
     }
 
     function cargar_tabla(){
-        $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion FROM info_usuarios";
+        $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion ROM info_usuarios";
         $resultado = Conexion::__construct()->prepare($sql);
         $resultado->execute();
             while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
@@ -148,6 +151,7 @@ class Usuarios extends Conexion{
 
         }
     }
+
 
 }
 
