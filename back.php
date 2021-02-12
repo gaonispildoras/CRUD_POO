@@ -3,6 +3,7 @@ require_once("conexion.php");
 require_once("librerias/TCPDF/tcpdf.php");
 
 
+
 class Usuarios extends Conexion{
 
 
@@ -27,7 +28,14 @@ class Usuarios extends Conexion{
     }
 
     function editar(){
-
+        if(isset($_GET["editar"])){
+            if(isset($_SESSION["admin"])){
+                
+            }
+            else{
+                echo "No eres ADMIN, no puedes editar ningún usuario";
+            }
+        }
     }
 
     function cargar_tabla(){
@@ -43,7 +51,7 @@ class Usuarios extends Conexion{
                         <td>$array[correo]</td>
                         <td>$array[direccion]</td>
                         <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]'><button class='btn btn-info'>Ver</button></a>
-                            <button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
+                            <a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]&editar=editar' class='editar'><button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button></a>
                             <a href='$_SERVER[PHP_SELF]?eliminar=eliminar&id_info=$array[id_info]'><button class='btn btn-danger'>Eliminar</button></a>
 
                         </td>
