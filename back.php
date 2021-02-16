@@ -15,7 +15,7 @@ class Usuarios extends Conexion{
     function eliminar(){
         if(isset($_GET["eliminar"])){
             if(isset($_SESSION["admin"])){
-                $sql="DELETE FROM info_usuarios WHERE id_info = $_GET[id_info]";
+                $sql= "DELETE FROM info_usuarios WHERE id_info = $_GET[id_info]";
                 $resultado = Conexion::__construct()->prepare($sql);
                 $resultado -> execute();
                 
@@ -42,7 +42,7 @@ class Usuarios extends Conexion{
     }
 
     function cargar_tabla(){
-        $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion ROM info_usuarios";
+        $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion FROM info_usuarios";
         $resultado = Conexion::__construct()->prepare($sql);
         $resultado->execute();
             while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
@@ -64,7 +64,7 @@ class Usuarios extends Conexion{
     }
 
     public function coger_datos(){
-        $sql="SELECT nombre, apellidos, edad, correo, direccion FROM info_usuarios";
+        $sql= "SELECT nombre, apellidos, edad, correo, direccion FROM info_usuarios";
         $resultado = Conexion::__construct()->prepare($sql);
         $resultado->execute();
 
@@ -149,6 +149,31 @@ class Usuarios extends Conexion{
             // This method has several options, check the source code documentation for more information.
             $pdf->Output("Informacion_$_GET[nombre].pdf", 'D');
 
+        }
+    }
+
+    public function añadir_modal(){
+            
+        if (isset($_SESSION["admin"])){
+                    // Modal
+            echo" 
+                <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title' id='exampleModalLabel'>Modal title</h5>
+                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                    </div>
+                    
+                    <div class='modal-body'>
+                        
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                        <button type='button' class='btn btn-primary'>Save changes</button>
+                    </div>
+                    </div>
+            ";
         }
     }
 
