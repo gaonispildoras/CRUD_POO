@@ -42,8 +42,8 @@ class Login_registro extends Conexion{
       }
    }
    public function login($usuario, $pass){
-      $sql="SELECT * FROM usuarios WHERE usuario=:usuario AND contraseña=:pass";
-      $sql2="SELECT * FROM admin2 WHERE usuario=:usuario AND contraseña=:pass";
+      $sql="SELECT * FROM usuarios WHERE usuario=:usuario AND pass=:pass";
+      $sql2="SELECT * FROM admin2 WHERE usuario=:usuario AND pass=:pass";
 
       $resultado = Conexion::__construct()->prepare($sql);
       $resultado->execute(array(":usuario"=>$usuario, ":pass"=>$pass));
@@ -62,7 +62,7 @@ class Login_registro extends Conexion{
          }
          else{
             echo "El nombre de usuario o la contraseña no coinciden";
-         }
+          }
 
 
    }
