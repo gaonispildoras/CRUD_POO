@@ -1,6 +1,6 @@
 <?php
 require_once("conexion.php");
-require_once("librerias/TCPDF/tcpdf.php");
+require_once("librerias2/TCPDF/tcpdf.php");
 
 
 
