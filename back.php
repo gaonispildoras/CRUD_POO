@@ -109,14 +109,16 @@ class Usuarios extends Conexion{
             <h1>Dirección: $_GET[direccion] </h1> 
             ";
 
+            
+
 
             // Print text using writeHTMLCell()
             $pdf->writeHTML($html);
 
-
+            ob_end_clean();
             // Close and output PDF document
             // This method has several options, check the source code documentation for more information.
-            $pdf->Output("Informacion_$_GET[nombre].pdf", 'I');
+            $pdf->Output("Información_$_GET[nombre].pdf", 'I');
 
         }
     }
@@ -140,14 +142,13 @@ class Usuarios extends Conexion{
             <h1>Dirección: $_GET[direccion]</h1> 
             EOD;
 
-
             // Print text using writeHTMLCell()
             $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
-
+            ob_end_clean();
             // Close and output PDF document
             // This method has several options, check the source code documentation for more information.
-            $pdf->Output("Informacion_$_GET[nombre].pdf", 'D');
+            $pdf->Output("Información_$_GET[nombre].pdf", 'D');
 
         }
     }
