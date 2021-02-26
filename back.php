@@ -28,38 +28,49 @@ class Usuarios extends Conexion{
     }
 
     function editar(){
-        if(isset($_GET["editar"])){
-            if(isset($_SESSION["admin"])){
-                
-            }
-            else{
-                
-                
-                echo "No eres ADMIN, no puedes editar ningún usuario";
-
-            }
-        }
+        $this->cargar_modal();
+            
     }
 
     function cargar_tabla(){
         $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion FROM info_usuarios";
         $resultado = Conexion::__construct()->prepare($sql);
         $resultado->execute();
-            while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
-                echo 
-                "<tr>
-                        <td>$array[nombre]</td>
-                        <td>$array[apellidos]</td>
-                        <td>$array[edad]</td>
-                        <td>$array[correo]</td>
-                        <td>$array[direccion]</td>
-                        <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]'><button class='btn btn-info'>Ver</button></a>
-                            <a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]&editar=editar' class='editar'><button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button></a>
-                            <a href='$_SERVER[PHP_SELF]?eliminar=eliminar&id_info=$array[id_info]'><button class='btn btn-danger'>Eliminar</button></a>
-
-                        </td>
-                 </tr>       
-                ";
+        $x=1;
+            if(isset($_SESSION["admin"])){
+                while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
+                    echo 
+                        "<tr>
+                            <td>$array[nombre]</td>
+                            <td>$array[apellidos]</td>
+                            <td>$array[edad]</td>
+                            <td>$array[correo]</td>
+                            <td>$array[direccion]</td>
+                            <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]' class='btn btn-info'>Ver</a>
+                                <button class='editar btn btn-primary datos_modal_$x' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
+                                <a href='$_SERVER[PHP_SELF]?eliminar=eliminar&id_info=$array[id_info]'><button class='btn btn-danger'>Eliminar</button></a> 
+                            </td>
+                        </tr>     
+                        ";
+                    $x++;   
+                } 
+            }
+            else{
+                while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
+                    echo
+                        "<tr>
+                            <td>$array[nombre]</td>
+                            <td>$array[apellidos]</td>
+                            <td>$array[edad]</td>
+                            <td>$array[correo]</td>
+                            <td>$array[direccion]</td>
+                            <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]'><button class='btn btn-info'>Ver</button></a>
+                                <a ><button disabled class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button></a>
+                                <a ><button disabled class='btn btn-danger'>Eliminar</button></a> 
+                            </td>
+                        </tr>       
+                    ";
+                }
             }
     }
 
@@ -153,9 +164,7 @@ class Usuarios extends Conexion{
         }
     }
 
-    public function añadir_modal(){
-            
-        if (isset($_SESSION["admin"])){
+    public function cargar_modal(){
                     // Modal
             echo" 
                 <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
@@ -167,7 +176,13 @@ class Usuarios extends Conexion{
                     </div>
                     
                     <div class='modal-body'>
+                        <h3>Nombre</h3><input type='text' id='nombre'>
+                        <h3>Apellidos</h3><input type='text' id='apellidos'>
+                        <h3>Edad</h3><input type='text' id='edad'>
+                        <h3>Correo</h3><input type='text' id='correo'>
+                        <h3>Dirección</h3><input type='text' id='direccion'>
                         
+                    
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
@@ -175,10 +190,11 @@ class Usuarios extends Conexion{
                     </div>
                     </div>
             ";
-        }
+        
     }
 
 
 }
 
 ?>
+
