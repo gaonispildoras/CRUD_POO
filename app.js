@@ -17,7 +17,7 @@ $(function(){
         $("#direccion").val(prueba1[4]);
         
 
-        $("#editar").load(editar.php);  
+        esto es una prueba.
     });
 
 });
