@@ -1,10 +1,23 @@
-//CANCELAMOS EL ACTUALIZAR LA PÁGINA AL PULSAR EN "EDITAR"
-$(function(){
+//FUNCION EDITAR
+$(function(){ 
 
-    $(".editar").click(function(event){ 
-        event.preventDefault();
+    $(".editar").on('click', function(){
+        
+        var prueba = $(this).parents("tr").find("td");
+        var prueba1 = [];
+        prueba.each(function( index ) {
+            prueba1.push($( this ).text());
+            
+            
+        });
+        $("#nombre").val(prueba1[0]);      
+        $("#apellidos").val(prueba1[1]);    
+        $("#edad").val(prueba1[2]);
+        $("#correo").val(prueba1[3]);
+        $("#direccion").val(prueba1[4]);
+        
 
+        $("#editar").load(editar.php);  
     });
-
 
 });
