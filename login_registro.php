@@ -10,7 +10,7 @@ class Login_registro extends Conexion{
    }
 
    public function registrar($usuario,$pass,$pass2,$correo,$admin){
-      if($this->vacio_login()==false){
+     // if($this->vacio_login()==false){
 
          if($admin=="normal"){
             if ($pass==$pass2){
@@ -36,10 +36,10 @@ class Login_registro extends Conexion{
 
          }
 
-      }
+     /* }
       else{
             echo "debes rellenar todos los campos";
-      }
+      }*/
    }
    public function login($usuario, $pass){
       $sql="SELECT * FROM usuarios WHERE usuario=:usuario AND pass=:pass";
@@ -67,16 +67,13 @@ class Login_registro extends Conexion{
 
    }
 
-   public function vacio_login(){
-      if ($usuario=""){ 
+   public function encriptar_pass(){
 
-         return true;
-      }
-      else{    
-
-         return false;
-      }
    } 
+
+   public function get_login($usuario, $pass){
+      
+   }
    
    public function session(){
          return session_start();
