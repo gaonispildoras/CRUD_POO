@@ -12,7 +12,7 @@ $persona2->descargar_pdf();
 $persona1->session();
 $persona1->logout();
 $persona2->eliminar();
-$persona2->editar();
+
 
 ?>
 
@@ -58,7 +58,7 @@ $persona2->editar();
     <form action="" method="post">
         <button class="btn btn-danger" type="submit" name="salir">Exit</button>
     </form>
-  <?php $persona2->añadir_modal(); ?>
+  <?php $persona2->editar(); ?>
 
 </body>
 </html>
