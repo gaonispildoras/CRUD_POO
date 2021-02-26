@@ -59,14 +59,14 @@ if(isset($_POST["enviar_r"])){
     $admin=$_POST["admin"];
 
     $persona = new Login_registro;
-    $persona->vacio_login();
+    //$persona->vacio_login();
     $persona->registrar("$_POST[usuario_r]", "$_POST[contraseña_r]","$_POST[contraseña_r2]","$_POST[correo]", "$admin[0]");
     
 }
 
 elseif(isset($_POST["enviar_l"])){
     $persona = new Login_registro;
-    $persona->vacio_login();
+    //$persona->vacio_login();
     $persona->login("$_POST[usuario_l]", "$_POST[contraseña_l]");
 
 }
