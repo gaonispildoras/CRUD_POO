@@ -5,8 +5,8 @@ class Conexion{
     public function __construct(){
         $host="localhost";
         $db="crud";
-        $user="root";
-        $pass="";
+        $user="prueba1";
+        $pass="usuario";
         
         try{
             $base = new PDO ("mysql:host=$host;dbname=$db",$user, $pass);
@@ -17,4 +17,4 @@ class Conexion{
         }       
     }  
 }
-?>
+?> 
