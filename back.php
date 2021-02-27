@@ -31,7 +31,8 @@ class Usuarios extends Conexion{
         $this->cargar_modal();
             
     }
-
+//echo "<td id='oculto'>$array[id_info]</td>";
+// <input type='text' class='oculto' value='$array[id_info]'>
     function cargar_tabla(){
         $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion FROM info_usuarios";
         $resultado = Conexion::__construct()->prepare($sql);
@@ -39,6 +40,7 @@ class Usuarios extends Conexion{
         $x=1;
             if(isset($_SESSION["admin"])){
                 while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
+                    
                     echo 
                         "<tr>
                             <td>$array[nombre]</td>
@@ -46,10 +48,12 @@ class Usuarios extends Conexion{
                             <td>$array[edad]</td>
                             <td>$array[correo]</td>
                             <td>$array[direccion]</td>
+                            <td class='oculto'>$array[id_info]</td>
                             <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]' class='btn btn-info'>Ver</a>
                                 <button class='editar btn btn-primary datos_modal_$x' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
                                 <a href='$_SERVER[PHP_SELF]?eliminar=eliminar&id_info=$array[id_info]'><button class='btn btn-danger'>Eliminar</button></a> 
                             </td>
+                            
                         </tr>     
                         ";
                     $x++;   
@@ -68,6 +72,7 @@ class Usuarios extends Conexion{
                                 <a ><button disabled class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button></a>
                                 <a ><button disabled class='btn btn-danger'>Eliminar</button></a> 
                             </td>
+                            
                         </tr>       
                     ";
                 }
@@ -164,7 +169,9 @@ class Usuarios extends Conexion{
         }
     }
 
+
     public function cargar_modal(){
+        
                     // Modal
             echo" 
                 <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
@@ -176,13 +183,14 @@ class Usuarios extends Conexion{
                     </div>
                     
                     <div class='p500 modal-body'>
+                    <div id='hola1' ></div>
                         <h3>Nombre</h3><input type='text' class='datos' id='nombre'>
                         <h3>Apellidos</h3><input type='text' class='datos' id='apellidos'>
                         <h3>Edad</h3><input type='text' class='datos' id='edad'>
                         <h3>Correo</h3><input type='text' class='datos' id='correo'>
                         <h3>Dirección</h3><input type='text' class='datos' id='direccion'>
-                        
-                    
+                                          <input type='hidden' class='datos' id='id_us'>
+                           
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
