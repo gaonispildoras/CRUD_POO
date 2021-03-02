@@ -1,7 +1,14 @@
 <?php 
 require_once("../prueba.php");
 
-$sql = "UPDATE info_usuarios SET nombre = '$_GET[nom]', apellidos = '$_GET[ape]', edad = '$_GET[edad]', direccion = '$_GET[dire]', correo = '$_GET[corr]'  WHERE id_info = '$_GET[oculto]'";
+$nombre = preg_replace("/\_/", " ", $_GET["nom"]);
+$apellidos = preg_replace("/\_/", " ", $_GET["ape"]);
+$edad = preg_replace("/\_/", " ", $_GET["edad"]);
+$direcc = preg_replace("/\_/", " ", $_GET["dire"]);
+$correo = preg_replace("/\_/", " ", $_GET["corr"]);
+
+$sql = "UPDATE info_usuarios SET nombre = '$nombre', apellidos = '$apellidos', edad = '$edad', direccion = '$direcc', correo = '$correo'  WHERE id_info = '$_GET[oculto]'";
+
 
 $conexion = $base->query($sql);
 

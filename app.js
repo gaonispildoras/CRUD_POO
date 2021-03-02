@@ -1,7 +1,7 @@
 
 $(function(){ 
     //Ocultar info
-    //$(".oculto").hide();
+    $(".oculto").hide();
 
     
     //PASAR DATOS AL MODAL
@@ -39,8 +39,14 @@ $(function(){
 
             
         });
-        var cargar = "calls_js/update.php?nom="+datos[0]+"&ape="+datos[1]+"&edad="+datos[2]+"&corr="+datos[3]+"&dire="+datos[4]+"&oculto="+datos[5]+" ";
-        $("#hola1").load(cargar);
+        var cargar_update = "calls_js/update.php?nom="+datos[0]+"&ape="+datos[1]+"&edad="+datos[2]+"&corr="+datos[3]+"&dire="+datos[4]+"&oculto="+datos[5]+" ";
+        var cargar_update_2 = cargar_update.replace(/ /g, "_");
+
+        var cargar_tabla = "calls_js/select.php";
+
+        $("#hola1").load(cargar_update_2);
+        //$(".prueba500").hide();
+        $("body").load(cargar_tabla);
     });
 
 });
