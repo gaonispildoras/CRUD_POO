@@ -14,9 +14,9 @@ class Login_registro extends Conexion{
 
          if($admin=="normal"){
             if ($pass==$pass2){
-               $sql="INSERT INTO usuarios (usuario , contraseña, correo) VALUES (:usuario , :pass, :correo)";
+               $sql="INSERT INTO usuarios (usuario , pass, correo) VALUES (:usuario , :pass, :correo)";
                $resultado = Conexion::__construct()->prepare($sql);
-               $resultado->execute(array(":usuario"=>$usuario,":pass"=>$pass,":correo"=>$correo));
+               $resultado->execute(array(":usuario"=>$usuario,":pass"=>$this->encriptar_pass($pass),":correo"=>$correo));
                
             }
             else{
@@ -26,9 +26,9 @@ class Login_registro extends Conexion{
          }
          else{
             if ($pass==$pass2){
-               $sql="INSERT INTO admin2 (usuario , contraseña, correo) VALUES (:usuario , :pass, :correo)";
+               $sql="INSERT INTO admin2 (usuario , pass, correo) VALUES (:usuario , :pass, :correo)";
                $resultado = Conexion::__construct()->prepare($sql);
-               $resultado->execute(array(":usuario"=>$usuario,":pass"=>$pass,":correo"=>$correo));
+               $resultado->execute(array(":usuario"=>$usuario,":pass"=>$this->encriptar_pass($pass),":correo"=>$correo));
             }
             else{
                echo "Las contraseñas no coinciden";
@@ -42,16 +42,17 @@ class Login_registro extends Conexion{
       }*/
    }
    public function login($usuario, $pass){
-      $sql="SELECT * FROM usuarios WHERE usuario=:usuario AND pass=:pass";
+      $sql="SELECT * FROM usuarios WHERE usuario=:usuario";
       $sql2="SELECT * FROM admin2 WHERE usuario=:usuario AND pass=:pass";
 
       $resultado = Conexion::__construct()->prepare($sql);
-      $resultado->execute(array(":usuario"=>$usuario, ":pass"=>$pass));
+      $resultado->execute(array(":usuario"=>$usuario));
+      $select=$resultado->fetch(PDO::FETCH_ASSOC);
 
       $resultado2 = Conexion::__construct()->prepare($sql2);
       $resultado2->execute(array(":usuario"=>$usuario, ":pass"=>$pass));
 
-         if ($resultado->rowCount()==1){
+         if (password_verify($pass, $select["pass"])){
             header("Location: index.php");
             
          }
@@ -62,14 +63,32 @@ class Login_registro extends Conexion{
          }
          else{
             echo "El nombre de usuario o la contraseña no coinciden";
+            echo "<br>";
+            print_r($select);
+            echo "<br>";
+            echo $select["pass"];
+            echo "<br>";
+            echo $pass;
+            echo "<br>";
+            
           }
 
 
    }
 
-   public function encriptar_pass(){
-
-   } 
+   public function encriptar_pass($pass){
+         $hash = password_hash($pass, PASSWORD_DEFAULT);
+         return $hash;
+   }
+   
+   public function comparar_hash($pass1, $pass2){
+         if(password_verify($pass1, $pass2)){
+            return true;
+         }
+         else{
+            echo "no";
+         }
+   }
 
    public function get_login($usuario, $pass){
       
