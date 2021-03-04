@@ -31,8 +31,7 @@ class Usuarios extends Conexion{
         $this->cargar_modal();
             
     }
-//echo "<td id='oculto'>$array[id_info]</td>";
-// <input type='text' class='oculto' value='$array[id_info]'>
+
     function cargar_tabla(){
         $sql="SELECT id_info, nombre, apellidos, edad, correo, direccion FROM info_usuarios";
         $resultado = Conexion::__construct()->prepare($sql);
@@ -42,7 +41,7 @@ class Usuarios extends Conexion{
                 while($array=$resultado->fetch(PDO::FETCH_ASSOC)){
                     
                     echo 
-                        "<tr>
+                        "<tr name='prueba'>
                             <td>$array[nombre]</td>
                             <td>$array[apellidos]</td>
                             <td>$array[edad]</td>
@@ -51,7 +50,7 @@ class Usuarios extends Conexion{
                             <td class='oculto'>$array[id_info]</td>
                             <td><a href='$_SERVER[PHP_SELF]?nom=$array[nombre]&ape=$array[apellidos]&age=$array[edad]&corr=$array[correo]&direc=$array[direccion]' class='btn btn-info'>Ver</a>
                                 <button class='editar btn btn-primary datos_modal_$x' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
-                                <a href='$_SERVER[PHP_SELF]?eliminar=eliminar&id_info=$array[id_info]'><button class='btn btn-danger'>Eliminar</button></a> 
+                                <button class='eliminar btn btn-danger'>Eliminar</button>
                             </td>
                             
                         </tr>     
@@ -178,11 +177,11 @@ class Usuarios extends Conexion{
                 <div class='modal-dialog'>
                     <div class='modal-content'>
                     <div class='modal-header'>
-                        <h5 class='modal-title' id='exampleModalLabel'>Editar Usuarios</h5>
+                        <h5 class='modal-title' id='exampleModalLabel'></h5>
                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>
                     
-                    <div class='p500 modal-body'>
+                    <div class='modal-body'>
                     <div id='hola1' ></div>
                         <h3>Nombre</h3><input type='text' class='datos' id='nombre'>
                         <h3>Apellidos</h3><input type='text' class='datos' id='apellidos'>
@@ -195,6 +194,7 @@ class Usuarios extends Conexion{
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
                         <button type='button' class='cambios btn btn-primary'>Guardar Cambios</button>
+                        <button type='button' class='cambios2 btn btn-primary'>Guardar Cambios</button>
                     </div>
                     </div>
             ";
