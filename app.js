@@ -7,6 +7,9 @@ $(function(){
     //PASAR DATOS AL MODAL
 
     $(".editar").on('click', function(){
+        $(".cambios2").hide();
+        $(".cambios").show();
+        $(".modal-title").text("Editar Usuarios");
         
         var prueba = $(this).parents("tr").find("td");
         var prueba1 = [];
@@ -20,11 +23,7 @@ $(function(){
         $("#edad").val(prueba1[2]);
         $("#correo").val(prueba1[3]);
         $("#direccion").val(prueba1[4]);
-        $("#id_us").val(prueba1[5]);
-
-        
-        
-
+        $("#id_us").val(prueba1[5]);                
         
     });
 
@@ -66,7 +65,38 @@ $(function(){
     });
 
 
-    
+    // CARGAR MODAL PARA AÑADIR REGISTROS
 
+    $(document).on("click",".añadir", function(){
+        $(".cambios").hide();
+        $(".cambios2").show();
+
+        $("#exampleModal").find("input,textarea,select").val("");
+        $("#exampleModal input[type='checkbox']").prop('checked', false).change();
+
+        $(".modal-title").text("Agregar Usuarios");
+        $(".modal").modal("show");
+        
+    });
+
+    
+    //AÑADIR REGISTROS
+
+    $(".cambios2").on("click",function(){
+        
+        var datos = [];
+        $(".datos").each(function(){
+            datos.push($(this).val());
+
+        });
+        var insert = "calls_js/insert.php?nom="+datos[0]+"&ape="+datos[1]+"&edad="+datos[2]+"&corr="+datos[3]+"&dire="+datos[4]+"&oculto="+datos[5]+" ";
+        var insert2 = insert.replace(/ /g, "_");
+
+        var cargar_tabla = "calls_js/select.php";
+
+        $("body").load(insert2);
+        $("body").load(cargar_tabla);
+        
+    });
 
 });
