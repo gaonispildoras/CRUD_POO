@@ -55,10 +55,15 @@ $persona2->eliminar();
             </div>
         </div>
     </div>
+    <div>
+        <button class="añadir btn btn-warning">Añadir Registros</button>
+    </div>
     <form action="" method="post">
         <button class="btn btn-danger" type="submit" name="salir">Exit</button>
     </form>
   <?php $persona2->editar(); ?>
+
+
 
 </body>
 </html>
