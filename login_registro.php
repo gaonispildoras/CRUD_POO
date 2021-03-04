@@ -43,34 +43,26 @@ class Login_registro extends Conexion{
    }
    public function login($usuario, $pass){
       $sql="SELECT * FROM usuarios WHERE usuario=:usuario";
-      $sql2="SELECT * FROM admin2 WHERE usuario=:usuario AND pass=:pass";
+      $sql2="SELECT * FROM admin2 WHERE usuario=:usuario";
 
       $resultado = Conexion::__construct()->prepare($sql);
       $resultado->execute(array(":usuario"=>$usuario));
       $select=$resultado->fetch(PDO::FETCH_ASSOC);
 
       $resultado2 = Conexion::__construct()->prepare($sql2);
-      $resultado2->execute(array(":usuario"=>$usuario, ":pass"=>$pass));
+      $resultado2->execute(array(":usuario"=>$usuario));
+      $select2=$resultado2->fetch(PDO::FETCH_ASSOC);
 
-         if (password_verify($pass, $select["pass"])){
+         if ($this->comparar_hash($pass, $select["pass"])){
             header("Location: index.php");
-            
          }
-         elseif($resultado2->rowCount()==1){
+         elseif($this->comparar_hash($pass, $select2["pass"])){
             header("Location: index.php");
             $this->session();
             $_SESSION["admin"]=true;
          }
          else{
             echo "El nombre de usuario o la contraseña no coinciden";
-            echo "<br>";
-            print_r($select);
-            echo "<br>";
-            echo $select["pass"];
-            echo "<br>";
-            echo $pass;
-            echo "<br>";
-            
           }
 
 
