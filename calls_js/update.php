@@ -10,7 +10,7 @@ $correo = preg_replace("/\_/", " ", $_GET["corr"]);
 $sql = "UPDATE info_usuarios SET nombre = '$nombre', apellidos = '$apellidos', edad = '$edad', direccion = '$direcc', correo = '$correo'  WHERE id_info = '$_GET[oculto]'";
 
 
-$conexion = $base->query($sql);
+$query = $base->query($sql);
 
 ?>
 
