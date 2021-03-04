@@ -30,8 +30,6 @@ $(function(){
 
     //EDITAR LOS DATOS
     
-    
-//
     $(".cambios").on("click", function(){
         var datos = [];
         $(".datos").each(function() {
@@ -45,8 +43,30 @@ $(function(){
         var cargar_tabla = "calls_js/select.php";
 
         $("#hola1").load(cargar_update_2);
-        //$(".prueba500").hide();
+
         $("body").load(cargar_tabla);
+        
     });
+
+    //ELIMINAR LOS DATOS
+    
+    $(".eliminar").on("click", function(){
+        var datos = [];
+        var prueba = $(this).parents("tr").find("td");
+        prueba.each(function(){
+            datos.push($(this).text());
+
+        });
+        
+        eliminar = "calls_js/delete.php?eliminar="+datos[5]+" ";
+        var cargar_tabla = "calls_js/select.php";
+        $("body").load(eliminar);
+        $("body").load(cargar_tabla);
+
+    });
+
+
+    
+
 
 });
